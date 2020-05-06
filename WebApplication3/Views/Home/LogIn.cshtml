@@ -1,0 +1,45 @@
+@model WebApplication3.Models.userModel
+
+@using (Html.BeginForm("UserDashboard", "Home", FormMethod.Post))
+{        
+    <style type="text/css">  
+        .bs-example 
+        {  
+            height:220px;   
+        }  
+    
+        .centerlook {  
+            padding-left: 8px;  
+            font-weight: bold;  
+            width: 400px;  
+        }  
+        .error {  
+            padding-left: 8px;  
+            font-weight: bold;  
+            width: 400px;  
+            color: red;  
+        }  
+    
+    </style>  
+      
+        <div class="form-group centerlook">  
+            <h1> Log In </h1>  
+        </div>  
+        <div class="form-group centerlook">  
+           <label>User Name: </label> 
+            @Html.TextBoxFor(model => model.username)
+            @Html.ValidationMessageFor(model => model.username)
+        </div>  
+        <div class="form-group centerlook">  
+            <label>Password:</label>
+            @Html.PasswordFor(model => model.password)
+            @Html.ValidationMessageFor(model => model.password)
+
+        </div>  
+        <div class="loginbtn">  
+            
+            <button type="submit">Log In</button>
+
+        </div>  
+
+}

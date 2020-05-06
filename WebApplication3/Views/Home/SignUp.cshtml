@@ -1,0 +1,63 @@
+@model WebApplication3.Models.signupForm
+
+@using (Html.BeginForm("SignUpAction", "Home", FormMethod.Post))
+{        
+    <style type="text/css">  
+        .bs-example 
+        {  
+            height:220px;   
+        }  
+    
+        .centerlook {  
+            padding-left: 8px;  
+            font-weight: bold;  
+            width: 400px;  
+        }  
+        .error {  
+            padding-left: 8px;  
+            font-weight: bold;  
+            width: 400px;  
+            color: red;  
+        }  
+    
+    </style>  
+    
+    <div class="bs-example" >  
+      
+        <div class="form-group centerlook">  
+            <h1> Create a new account </h1>  
+        </div>  
+            <div class="form-group centerlook">  
+            <p><label>Full Name: </label></p>  
+            @Html.TextBoxFor(model => model.name)
+            @Html.ValidationMessageFor(model => model.name)
+        </div>  
+                <div class="form-group centerlook">  
+            <p><label>Email Address: </label></p>  
+            @Html.TextBoxFor(model => model.email)
+            @Html.ValidationMessageFor(model => model.email)
+        </div>  
+                <div class="form-group centerlook">  
+            <p><label>Phone Number: </label></p>  
+            @Html.TextBoxFor(model => model.phone)
+            @Html.ValidationMessageFor(model => model.phone)
+        </div>  
+        <div class="form-group centerlook">  
+            <p><label>User Name: </label></p>  
+            @Html.TextBoxFor(model => model.username)
+            @Html.ValidationMessageFor(model => model.username)
+        </div>  
+        <div class="form-group centerlook">  
+            <p><label>Password:</label></p> 
+            @Html.PasswordFor(model => model.password)
+            @Html.ValidationMessageFor(model => model.password)
+
+        </div>  
+        <div class="loginbtn">  
+            
+            <button type="submit">Create Account</button>
+
+        </div>  
+    </div>  
+}
+
