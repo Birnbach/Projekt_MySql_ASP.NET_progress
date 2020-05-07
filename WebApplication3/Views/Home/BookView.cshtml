@@ -1,4 +1,4 @@
-﻿@model IEnumerable<WebApplication3.Baza.Book>
+﻿@model IEnumerable<WebApplication3.Models.Book>
 
 @{
     ViewData["Title"] = "BookView";
@@ -55,9 +55,8 @@
                 @Html.DisplayFor(modelItem => item.Edition)
             </td>
             <td>
-                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+                @Html.ActionLink("Edit", "Edit", new { id = item.BooksID, available = item.Available }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.BooksID, available = item.Available, author = item.Author, title = item.Title, edition = item.Edition, genre = item.Genre })
             </td>
         </tr>
 }

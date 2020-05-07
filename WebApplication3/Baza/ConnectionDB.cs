@@ -5,7 +5,6 @@ using System.Linq;
 using System.Threading.Tasks;
 using MySql.Data.MySqlClient;
 using MySql.Data;
-using Projekt_MySql_ASP.NET.Models;
 using WebApplication3.Models;
 using System.Diagnostics;
 
@@ -253,6 +252,61 @@ namespace WebApplication3.Baza
                 cmd4.ExecuteNonQuery();
             }
             return newUserID;   // id of newly created user
+        }
+        public void EditBook(int BooksID, string Title, string Author, int Edition, string Genre, int Available)
+        {
+
+            using (MySqlConnection conn = GetConnection())
+            {
+                conn.Open();
+
+                using (MySqlCommand cmd = new MySqlCommand("UPDATE new_schema.books SET Title = @Title, Author = @Author, Edition = @Edition, Genre = @Genre, Available = @Available WHERE BooksID = @BooksID", conn))
+                {
+                    cmd.Parameters.AddWithValue("@BooksID", BooksID);
+                    cmd.Parameters.AddWithValue("@Title", Title);
+                    cmd.Parameters.AddWithValue("@Author", Author);
+                    cmd.Parameters.AddWithValue("@Edition", Edition);
+                    cmd.Parameters.AddWithValue("@Genre", Genre);
+                    cmd.Parameters.AddWithValue("@Available", Available);
+
+                    cmd.ExecuteNonQuery();
+                    conn.Close();
+                }
+            }
+        }
+        public void DeleteBook(int BooksID)
+        {
+            using (MySqlConnection conn = GetConnection())
+            {
+                conn.Open();
+                using (MySqlCommand cmd = new MySqlCommand("DELETE FROM new_schema.books WHERE BooksID = @BooksID", conn))
+                {
+                    cmd.Parameters.AddWithValue("@BooksID", BooksID);
+                    cmd.ExecuteNonQuery();
+                    conn.Close();
+                }
+            }
+        }
+        public void CreateBook(int BooksID, string Title, string Author, int Edition, string Genre, int Available)
+        {
+
+            using (MySqlConnection conn = GetConnection())
+            {
+                conn.Open();
+
+                using (MySqlCommand cmd = new MySqlCommand("INSERT INTO new_schema.books (BooksID, Title, Author, Edition, Genre, Available)  VALUES (@BooksID, @Title, @Author, @Edition, @Genre, @Available)", conn))
+                {
+                    cmd.Parameters.AddWithValue("@BooksID", BooksID);
+                    cmd.Parameters.AddWithValue("@Title", Title);
+                    cmd.Parameters.AddWithValue("@Author", Author);
+                    cmd.Parameters.AddWithValue("@Edition", Edition);
+                    cmd.Parameters.AddWithValue("@Genre", Genre);
+                    cmd.Parameters.AddWithValue("@Available", Available);
+
+                    cmd.ExecuteNonQuery();
+                    conn.Close();
+                }
+            }
         }
     }
 }

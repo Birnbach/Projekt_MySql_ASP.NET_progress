@@ -105,5 +105,58 @@ namespace WebApplication3.Controllers
         {            
             return View();
         }
+
+        public IActionResult Edit(int Id, int available)
+        {
+            Book book = new Book();
+            book.BooksID = Id;
+            book.Available = available;
+            return View(book);
+        }
+
+        [HttpPost]
+        public IActionResult Edit(Book book)
+        {
+            ConnectionDB conn = HttpContext.RequestServices.GetService(typeof(WebApplication3.Baza.ConnectionDB)) as ConnectionDB;
+            conn.EditBook(book.BooksID, book.Title, book.Author, book.Edition, book.Genre, book.Available);
+            return RedirectToAction("BookView");
+        }
+
+        [HttpGet]
+        public ActionResult Delete(int Id, int available, string author, string title, int edition, string genre)
+        {
+            Book book = new Book();
+            book.BooksID = Id;
+            book.Title = title;
+            book.Available = available;
+            book.Genre = genre;
+            book.Author = author;
+            book.Edition = edition;
+
+            return View(book);
+
+        }
+
+        [HttpPost, ActionName("Delete")]
+        public ActionResult DeleteConfirmed(int Id)
+        {
+            ConnectionDB conn = HttpContext.RequestServices.GetService(typeof(WebApplication3.Baza.ConnectionDB)) as ConnectionDB;
+            conn.DeleteBook(Id);
+
+            return RedirectToAction("BookView");
+        }
+        public ActionResult Create()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult Create(Book book)
+        {
+            ConnectionDB conn = HttpContext.RequestServices.GetService(typeof(WebApplication3.Baza.ConnectionDB)) as ConnectionDB;
+            conn.CreateBook(book.BooksID, book.Title, book.Author, book.Edition, book.Genre, book.Available);
+            return RedirectToAction("BookView");
+
+        }
     }
 }
