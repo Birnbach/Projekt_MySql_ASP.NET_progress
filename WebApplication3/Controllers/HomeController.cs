@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using WebApplication3.Models;
 using WebApplication3.Baza;
+using System.Text;
 
 namespace WebApplication3.Controllers
 {
@@ -66,8 +67,18 @@ namespace WebApplication3.Controllers
                 ConnectionDB conn = HttpContext.RequestServices.GetService(typeof(WebApplication3.Baza.ConnectionDB)) as ConnectionDB;
                 int userID = conn.checkUserID(model);
                 // Debug.Write(userID + "\n");
-                if(userID > 0) return View("UserDashboard");
-                else return View("LoginError");
+
+                if (userID > 0)
+                {
+                    _logger.LogInformation("User {User} logged in at {Time}", model.username, DateTime.Now);
+
+                    return View("UserDashboard");
+                }
+                else
+                {
+                    _logger.LogError("Error while logging in.");
+                    return View("LoginError");
+                }
             }
             return View();
         }
@@ -81,8 +92,16 @@ namespace WebApplication3.Controllers
                 ConnectionDB conn = HttpContext.RequestServices.GetService(typeof(WebApplication3.Baza.ConnectionDB)) as ConnectionDB;
                 int result = conn.createUser(model);
                 Console.WriteLine(result);
-                if(result > 0) return View("SignUpAction");
-                else return View("SignUpError");
+                if (result > 0)
+                {
+                    _logger.LogInformation("User {User} succesfully signed up at {Time}", model.username, DateTime.Now);
+                    return View("SignUpAction");
+                }
+                else
+                {
+                    _logger.LogError("Error while signing up.");
+                    return View("SignUpError");
+                }
             }
             return View();
         }
@@ -106,11 +125,12 @@ namespace WebApplication3.Controllers
             return View();
         }
 
-        public IActionResult Edit(int Id, int available)
+        public IActionResult Edit(int Id, int available, string Title,string Genre, int Edition)
         {
             Book book = new Book();
             book.BooksID = Id;
             book.Available = available;
+            _logger.LogWarning("Book with Id {Id} is about to be edited. Title: {Title}, Genre: {Genre}, Edition: {Edition} etc... at {Time} ", Id, Title ,Genre, Edition, DateTime.Now);
             return View(book);
         }
 
@@ -119,6 +139,8 @@ namespace WebApplication3.Controllers
         {
             ConnectionDB conn = HttpContext.RequestServices.GetService(typeof(WebApplication3.Baza.ConnectionDB)) as ConnectionDB;
             conn.EditBook(book.BooksID, book.Title, book.Author, book.Edition, book.Genre, book.Available);
+
+            _logger.LogWarning("Edited book with Id: {Id}. Now it's: Title: {Title}, Genre: {Genre}, Edition: {Edition} etc... at {Time}", book.BooksID, book.Title,book.Genre, book.Edition, DateTime.Now);
             return RedirectToAction("BookView");
         }
 
@@ -143,6 +165,9 @@ namespace WebApplication3.Controllers
             ConnectionDB conn = HttpContext.RequestServices.GetService(typeof(WebApplication3.Baza.ConnectionDB)) as ConnectionDB;
             conn.DeleteBook(Id);
 
+            _logger.LogWarning("Deleted book with Id: {Id} at {Time}", Id, DateTime.Now);
+
+
             return RedirectToAction("BookView");
         }
         public ActionResult Create()
@@ -153,8 +178,13 @@ namespace WebApplication3.Controllers
         [HttpPost]
         public ActionResult Create(Book book)
         {
+            
             ConnectionDB conn = HttpContext.RequestServices.GetService(typeof(WebApplication3.Baza.ConnectionDB)) as ConnectionDB;
             conn.CreateBook(book.BooksID, book.Title, book.Author, book.Edition, book.Genre, book.Available);
+
+           // var message = "Created book with Id: " + book.BooksID.ToString();
+            _logger.LogWarning("Created book with Id: {Id}, Title: {Title}, Edition: {Edition} etc... at {Time}", book.BooksID, book.Title,book.Edition, DateTime.Now);
+
             return RedirectToAction("BookView");
 
         }
