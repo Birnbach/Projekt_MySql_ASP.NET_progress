@@ -6,6 +6,9 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Microsoft.EntityFrameworkCore;
+using System.Text;
+using WebApplication3.Baza;
 
 namespace WebApplication3
 {
@@ -14,6 +17,7 @@ namespace WebApplication3
         public static void Main(string[] args)
         {
             CreateHostBuilder(args).Build().Run();
+       
         }
 
         public static IHostBuilder CreateHostBuilder(string[] args) =>

@@ -3,7 +3,12 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29905.134
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Projekt_MySql_ASP.NET", "WebApplication3\Projekt_MySql_ASP.NET.csproj", "{7AC1C594-4712-4BC4-8FAF-1C461719A579}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Projekt_MySql_ASP.NET", "WebApplication3\Projekt_MySql_ASP.NET.csproj", "{7AC1C594-4712-4BC4-8FAF-1C461719A579}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebApplication3.tests", "WebApplication3.tests\WebApplication3.tests.csproj", "{3B032DD7-E80B-4699-B7FD-DA1A3D091B3F}"
+	ProjectSection(ProjectDependencies) = postProject
+		{7AC1C594-4712-4BC4-8FAF-1C461719A579} = {7AC1C594-4712-4BC4-8FAF-1C461719A579}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +20,10 @@ Global
 		{7AC1C594-4712-4BC4-8FAF-1C461719A579}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7AC1C594-4712-4BC4-8FAF-1C461719A579}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7AC1C594-4712-4BC4-8FAF-1C461719A579}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3B032DD7-E80B-4699-B7FD-DA1A3D091B3F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3B032DD7-E80B-4699-B7FD-DA1A3D091B3F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3B032DD7-E80B-4699-B7FD-DA1A3D091B3F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3B032DD7-E80B-4699-B7FD-DA1A3D091B3F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

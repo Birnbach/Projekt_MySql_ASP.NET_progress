@@ -253,6 +253,40 @@ namespace WebApplication3.Baza
             }
             return newUserID;   // id of newly created user
         }
+        public int checkIfUserExists(string username)   // returns user ID if exists, -1 otherwise
+        {
+            int userID = -1;
+            using (MySqlConnection conn = GetConnection())
+            {
+                conn.Open();
+                string checkUserID = "select LoginID from new_schema.hashlogininfo where login = \"" + username + "\"";
+                MySqlCommand checkUsernameCommand = new MySqlCommand(checkUserID, conn);
+                using (var reader1 = checkUsernameCommand.ExecuteReader())
+                {
+                    while (reader1.Read()) userID = Convert.ToInt32(reader1["LoginID"]);
+                }
+                conn.Close();
+            }
+            return userID;
+        }
+        public void removeUser(int userID)
+        {
+            using (MySqlConnection conn = GetConnection())
+            {
+                conn.Open();
+                using (MySqlCommand cmd1 = new MySqlCommand("DELETE FROM new_schema.reader WHERE ReaderID = @userID", conn))
+                {
+                    cmd1.Parameters.AddWithValue("@userID", userID);
+                    cmd1.ExecuteNonQuery();
+                }
+                using (MySqlCommand cmd2 = new MySqlCommand("DELETE FROM new_schema.hashlogininfo WHERE LoginID = @userID", conn))
+                {
+                    cmd2.Parameters.AddWithValue("@userID", userID);
+                    cmd2.ExecuteNonQuery();
+                }
+                conn.Close();
+            }
+        }
         public void EditBook(int BooksID, string Title, string Author, int Edition, string Genre, int Available)
         {
 

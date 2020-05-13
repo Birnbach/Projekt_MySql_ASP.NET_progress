@@ -9,22 +9,33 @@
 <p>
     <a asp-action="Create">Create New</a>
 </p>
+@using (Html.BeginForm())
+{
+    <p>
+        Find by name: @Html.TextBox("SearchString")
+        <input type="submit" value="Search" />
+    </p>
+}
 <table class="table">
     <thead>
         <tr>
             <th>
+                @Html.ActionLink("↓", "BookView", new { sortOrder = ViewBag.IdSortParm })
                 @Html.DisplayNameFor(model => model.BooksID)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Available)
             </th>
             <th>
+                @Html.ActionLink("↓", "BookView", new { sortOrder = ViewBag.NameSortParm })
                 @Html.DisplayNameFor(model => model.Title)
             </th>
             <th>
+                @Html.ActionLink("↓", "BookView", new { sortOrder = ViewBag.AutSortParm })
                 @Html.DisplayNameFor(model => model.Author)
             </th>
             <th>
+                @Html.ActionLink("↓", "BookView", new { sortOrder = ViewBag.GenSortParm })
                 @Html.DisplayNameFor(model => model.Genre)
             </th>
             <th>
@@ -34,31 +45,32 @@
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.BooksID)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Available)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Title)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Author)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Genre)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Edition)
-            </td>
-            <td>
-                @Html.ActionLink("Edit", "Edit", new { id = item.BooksID, available = item.Available, author = item.Author, title = item.Title, edition = item.Edition, genre = item.Genre}) |
-                @Html.ActionLink("Delete", "Delete", new { id = item.BooksID, available = item.Available, author = item.Author, title = item.Title, edition = item.Edition, genre = item.Genre })
-            </td>
-        </tr>
-}
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.BooksID)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Available)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Title)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Author)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Genre)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Edition)
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { id = item.BooksID, available = item.Available, author = item.Author, title = item.Title, edition = item.Edition, genre = item.Genre }) |
+                    @Html.ActionLink("Delete", "Delete", new { id = item.BooksID, available = item.Available, author = item.Author, title = item.Title, edition = item.Edition, genre = item.Genre })
+                </td>
+            </tr>
+        }
     </tbody>
 </table>
